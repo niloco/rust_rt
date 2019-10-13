@@ -19,7 +19,7 @@ impl Image {
 
     pub fn print(&self) {
         for p in self.image.iter() {
-            println!("{} {} {}\n", p.r, p.g, p.b)
+            println!("{} {} {}", p.r, p.g, p.b)
         }
     }
 }

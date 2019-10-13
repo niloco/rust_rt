@@ -28,8 +28,20 @@ impl Vec3 {
         self.z
     }
 
-    pub fn length(&self) -> f32 {
-        (self.x * self.x + self.y * self.y + self.z + self.z).sqrt()
+    pub fn squared_len(&self) -> f32 {
+        self.x * self.x + self.y * self.y + self.z * self.z
+    }
+
+    pub fn len(&self) -> f32 {
+        self.squared_len().sqrt()
+    }
+
+    pub fn get_unit_vec(&self) -> Self {
+        *self / self.len()
+    }
+
+    pub fn make_unit_vector(&mut self) {
+        *self = *self / self.len()
     }
 }
 
