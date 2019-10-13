@@ -2,10 +2,13 @@ mod rt;
 
 use rt::vec3::Vec3;
 use rt::ray::Ray;
+use rt::image::{ Image, Pixel };
 
 fn main() {
     let nx = 200;
     let ny = 100;
+
+    let mut image = Image::new(nx, ny);
 
     println!("P3\n{} {}\n255", nx, ny);
 
@@ -22,13 +25,15 @@ fn main() {
             let ray = Ray::new(origin, lower_left_corner + u * horizontal + v * vertical);
             let col = color(&ray);
             
-            let ir = (255.99 * col.get_x()) as i32;
-            let ig = (255.99 * col.get_y()) as i32;
-            let ib = (255.99 * col.get_z()) as i32;
+            let ir = (255.99 * col.get_x()) as u8;
+            let ig = (255.99 * col.get_y()) as u8;
+            let ib = (255.99 * col.get_z()) as u8;
 
-            println!("{} {} {}", ir, ig, ib)
+            image.get_mut(i, j).unwrap().set(ir, ig, ib)
         }
     }
+
+    image.print()
 }
 
 fn color(r: &Ray) -> Vec3 {
